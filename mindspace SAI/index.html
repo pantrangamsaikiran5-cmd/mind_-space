@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MindSpace — a quiet place to be honest</title>
+<meta name="description" content="An anonymous community for venting, small wins, and support. No names, no judgment.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+
+<!-- Ambient background -->
+<div class="stars" aria-hidden="true"></div>
+
+<!-- ================= NAV ================= -->
+<header class="nav">
+  <div class="nav-inner">
+    <a href="#top" class="brand">
+      <span class="brand-orb" aria-hidden="true"></span>
+      MindSpace
+    </a>
+    <nav class="nav-links" id="navLinks">
+      <a href="#community" data-view-link="public">Community</a>
+      <a href="#private" data-view-link="private">Private Sector</a>
+      <a href="#breathe" data-view-link="breathe">Breathe</a>
+      <a href="#feedback" data-view-link="feedback">Feedback</a>
+    </nav>
+    <button class="btn btn-ghost nav-cta" id="openChatBtn">Talk to MindBot</button>
+    <button class="nav-burger" id="navBurger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- ================= HERO ================= -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-copy">
+        <p class="eyebrow">Anonymous · Always open · No names</p>
+        <h1>Say the quiet part.<br>Someone here is <em>listening.</em></h1>
+        <p class="hero-sub">MindSpace is a place to vent, celebrate small wins, and be
+        heard — without your name attached to any of it. Every post passes through
+        a caring filter before it's ever seen, so the space stays safe.</p>
+        <div class="hero-actions">
+          <a href="#community" class="btn btn-primary" data-view-link="public">Enter the community</a>
+          <button class="btn btn-outline" id="heroBreatheBtn">Breathe with me</button>
+        </div>
+        <div class="hero-stats">
+          <div><strong id="statPosts">—</strong><span>things said out loud</span></div>
+          <div><strong id="statHugs">—</strong><span>hugs sent</span></div>
+        </div>
+      </div>
+      <div class="hero-visual" aria-hidden="true">
+        <div class="orb orb-lg breathing" id="heroOrb"></div>
+        <div class="orb-ring"></div>
+        <div class="orb-ring orb-ring-2"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= PUBLIC FEED ================= -->
+  <section class="view" id="community" data-view="public">
+    <div class="section-head">
+      <div>
+        <p class="eyebrow">Public feed</p>
+        <h2>What people are carrying today</h2>
+      </div>
+      <button class="btn btn-primary" id="newPostBtn-public">Share something</button>
+    </div>
+
+    <div class="mood-filter" id="moodFilter" aria-label="Filter by mood"></div>
+
+    <div class="feed" id="publicFeed">
+      <div class="feed-skeleton"></div>
+    </div>
+  </section>
+
+  <!-- ================= PRIVATE SECTOR ================= -->
+  <section class="view" id="private" data-view="private">
+
+    <div id="authGate" class="auth-gate">
+      <div class="auth-card">
+        <span class="lock-orb" aria-hidden="true"></span>
+        <p class="eyebrow">Private Sector</p>
+        <h2>A deeper layer of quiet</h2>
+        <p class="auth-copy">This part of MindSpace is only visible once you hold an
+        anonymous alias. No email, no real name — just something to unlock the door with.</p>
+
+        <div class="auth-tabs">
+          <button class="auth-tab active" data-tab="login">Log in</button>
+          <button class="auth-tab" data-tab="register">Create an alias</button>
+        </div>
+
+        <form id="loginForm" class="auth-form">
+          <label>Alias
+            <input type="text" name="alias" required minlength="3" autocomplete="username">
+          </label>
+          <label>Passphrase
+            <input type="password" name="password" required minlength="4" autocomplete="current-password">
+          </label>
+          <button type="submit" class="btn btn-primary btn-block">Enter</button>
+          <p class="form-error" data-error="login"></p>
+        </form>
+
+        <form id="registerForm" class="auth-form hidden">
+          <label>Choose an alias
+            <input type="text" name="alias" required minlength="3" autocomplete="username">
+          </label>
+          <label>Choose a passphrase
+            <input type="password" name="password" required minlength="4" autocomplete="new-password">
+          </label>
+          <button type="submit" class="btn btn-primary btn-block">Create my space</button>
+          <p class="form-error" data-error="register"></p>
+        </form>
+      </div>
+    </div>
+
+    <div id="privateContent" class="hidden">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Signed in as <span id="privateAlias">—</span></p>
+          <h2>The Private Sector</h2>
+        </div>
+        <div class="section-head-actions">
+          <button class="btn btn-primary" id="newPostBtn-private">Share something</button>
+          <button class="btn btn-ghost" id="logoutBtn">Log out</button>
+        </div>
+      </div>
+      <div class="feed" id="privateFeed">
+        <div class="feed-skeleton"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= BREATHE ================= -->
+  <section class="view" id="breathe" data-view="breathe">
+    <div class="section-head">
+      <div>
+        <p class="eyebrow">A minute for you</p>
+        <h2>Breathe with the orb</h2>
+      </div>
+    </div>
+    <div class="breathe-panel">
+      <div class="orb orb-lg breathe-orb" id="breatheOrb"></div>
+      <p class="breathe-label" id="breatheLabel">Press start when you're ready</p>
+      <div class="breathe-actions">
+        <button class="btn btn-primary" id="breatheStartBtn">Start 4·4·6 breathing</button>
+        <button class="btn btn-outline hidden" id="breatheStopBtn">Stop</button>
+      </div>
+      <p class="breathe-note">Inhale for 4 seconds, hold for 4, release for 6. Three rounds is
+      usually enough to settle a racing heart.</p>
+    </div>
+  </section>
+
+  <!-- ================= FEEDBACK ================= -->
+  <section class="view" id="feedback" data-view="feedback">
+    <div class="section-head">
+      <div>
+        <p class="eyebrow">Help us tend this space</p>
+        <h2>Tell us how MindSpace is doing</h2>
+      </div>
+    </div>
+    <form class="feedback-card" id="feedbackForm">
+      <div class="star-rating" id="starRating" data-value="0">
+        <button type="button" class="star" data-star="1" aria-label="1 star">★</button>
+        <button type="button" class="star" data-star="2" aria-label="2 stars">★</button>
+        <button type="button" class="star" data-star="3" aria-label="3 stars">★</button>
+        <button type="button" class="star" data-star="4" aria-label="4 stars">★</button>
+        <button type="button" class="star" data-star="5" aria-label="5 stars">★</button>
+      </div>
+      <label>Your alias <span class="optional">(optional)</span>
+        <input type="text" name="alias" placeholder="Anonymous Guest">
+      </label>
+      <label>What's on your mind?
+        <textarea name="message" rows="4" required placeholder="Tell us what's working, what isn't, or what you wish existed here."></textarea>
+      </label>
+      <button type="submit" class="btn btn-primary btn-block">Send feedback</button>
+      <p class="form-error" data-error="feedback"></p>
+    </form>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <span class="brand"><span class="brand-orb" aria-hidden="true"></span>MindSpace</span>
+    <p>Not a replacement for professional care. If you're in crisis, please use the helplines
+    MindBot and our safety filter will always surface for you.</p>
+  </div>
+</footer>
+
+<!-- ================= POST COMPOSER MODAL ================= -->
+<div class="modal-overlay hidden" id="postModal">
+  <div class="modal">
+    <button class="modal-close" data-close="postModal" aria-label="Close">&times;</button>
+    <p class="eyebrow" id="postModalEyebrow">Public feed</p>
+    <h3>What's on your mind?</h3>
+    <form id="postForm">
+      <label>Alias <span class="optional">(optional — leave blank to stay "Anonymous Friend")</span>
+        <input type="text" name="alias" placeholder="Anonymous Friend">
+      </label>
+      <label>Mood
+        <select name="mood_tag" id="moodSelect"></select>
+      </label>
+      <label>Your words
+        <textarea name="content" rows="5" required placeholder="Say it here. No one will know it's you."></textarea>
+      </label>
+      <button type="submit" class="btn btn-primary btn-block">Post anonymously</button>
+      <p class="form-error" data-error="post"></p>
+    </form>
+  </div>
+</div>
+
+<!-- ================= CRISIS RESOURCE MODAL ================= -->
+<div class="modal-overlay hidden" id="crisisModal">
+  <div class="modal modal-crisis">
+    <button class="modal-close" data-close="crisisModal" aria-label="Close">&times;</button>
+    <span class="lock-orb crisis-orb" aria-hidden="true"></span>
+    <h3 id="crisisTitle">You are not alone</h3>
+    <p id="crisisDescription"></p>
+    <div class="crisis-contacts" id="crisisContacts"></div>
+    <div class="crisis-tips" id="crisisTips"></div>
+  </div>
+</div>
+
+<!-- ================= MINDBOT CHAT ================= -->
+<div class="chat-widget" id="chatWidget">
+  <div class="chat-panel hidden" id="chatPanel">
+    <div class="chat-header">
+      <span class="orb orb-sm breathing" aria-hidden="true"></span>
+      <div>
+        <strong>MindBot</strong>
+        <span>your AI companion, listening 24/7</span>
+      </div>
+      <button class="modal-close" id="closeChatBtn" aria-label="Close chat">&times;</button>
+    </div>
+    <div class="chat-messages" id="chatMessages">
+      <div class="chat-msg chat-msg-bot">
+        Hi, I'm MindBot. You can share your story, vent about your day, or just talk about how you're feeling. Whatever you say here stays anonymous.
+      </div>
+    </div>
+    <form class="chat-input-row" id="chatForm">
+      <input type="text" name="message" placeholder="Type how you're feeling…" autocomplete="off" required>
+      <button type="submit" aria-label="Send">↑</button>
+    </form>
+  </div>
+  <button class="chat-bubble" id="chatBubbleBtn" aria-label="Open MindBot chat">
+    <span class="orb orb-sm breathing" aria-hidden="true"></span>
+  </button>
+</div>
+
+<!-- ================= TOASTS ================= -->
+<div class="toast-stack" id="toastStack"></div>
+
+<script src="/static/js/app.js"></script>
+</body>
+</html>
